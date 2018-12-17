@@ -2,6 +2,7 @@ package pl.edu.agh.student.zyngier.database;
 
 import com.mysql.cj.util.StringUtils;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 public class DB{
@@ -14,7 +15,7 @@ public class DB{
     private Statement stmt = null;
     private ResultSet rs = null;
 
-    public void connect(){
+    private void openConnection(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             conn = DriverManager.getConnection("jdbc:mysql://"+ DB_HOST +"/"+ DB_NAME +"", DB_USER, DB_PASSWORD);
@@ -25,35 +26,58 @@ public class DB{
         }catch(Exception e){e.printStackTrace();}
     }
 
+    private void closeConnection(){
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException sqlEx) { } // ignore
+            rs = null;
+        }
+
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException sqlEx) { } // ignore
+
+            stmt = null;
+        }
+    }
+
     public boolean checkIfEmailAndPasswordIsCorrect(String email, String password){
         try {
-            connect();
-            stmt = conn.createStatement();
+            openConnection();
 
-            rs = stmt.executeQuery("SELECT COUNT(*) FROM users WHERE email='"+ email +"' AND password='"+ password +"'");
+            Sha1 hash = new Sha1();
+
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT COUNT(*) FROM users WHERE email='"+ email +"' AND password='"+ hash.sha1(password) +"'");
 
             while(rs.next()){
-                if(rs.getInt(1)>0)
-                    return true;
+                if(rs.getInt(1) > 0) return true;
+            }
+        }catch (SQLException | NoSuchAlgorithmException ex){
+            // handle any error
+        }finally {
+            closeConnection();
+        }
+
+        return false;
+    }
+
+    public boolean checkIfEmailExist(String email){
+        try {
+            openConnection();
+
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT COUNT(*) FROM users WHERE email='"+ email +"'");
+
+            while(rs.next()){
+                if(rs.getInt(1) > 0) return true;
             }
         }catch (SQLException ex){
-            // handle any errors
-
+            // handle any error
         }finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException sqlEx) { } // ignore
-                rs = null;
-            }
-
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException sqlEx) { } // ignore
-
-                stmt = null;
-            }
+            closeConnection();
         }
 
         return false;

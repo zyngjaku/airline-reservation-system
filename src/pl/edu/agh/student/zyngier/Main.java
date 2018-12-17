@@ -2,6 +2,7 @@ package pl.edu.agh.student.zyngier;
 
 import com.sun.javafx.application.LauncherImpl;
 import javafx.application.Application;
+import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,23 +18,19 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import pl.edu.agh.student.zyngier.database.DB;
-import pl.edu.agh.student.zyngier.database.Sha1;
-
-import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import static java.util.Objects.hash;
 
 public class Main extends Application {
     public static final String AIRLINE_NAME = "Example Airline";
 
-    Scene loginScreen, registerScreen;
+    public Scene loginScreen = null, registerScreen = null;
+    private BorderPane root = null;
+    private Stage mainStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        BorderPane root = new BorderPane(FXMLLoader.load(getClass().getResource("login.fxml")));
+        /* Prepare scenes */
+        root = new BorderPane(FXMLLoader.load(getClass().getResource("login.fxml")));
         new MenuController().ifUserIsNotLoggedIn(primaryStage, root);
         loginScreen = new Scene(root);
 
@@ -42,15 +39,11 @@ public class Main extends Application {
         registerScreen = new Scene(root);
 
         primaryStage.setTitle(AIRLINE_NAME + " Reservation System");
-        primaryStage.setScene(loginScreen);
+        primaryStage.setScene(registerScreen);
         primaryStage.show();
 
-        System.out.println(primaryStage.getWidth());
-        System.out.println(primaryStage.getHeight());
-        Sha1 hash = new Sha1();
-        System.out.println(hash.sha1("admin"));
-        DB db = new DB();
-        System.out.println(db.checkIfEmailAndPasswordIsCorrect("admin@gmail.com", "d033e22ae348aeb5660fc2140aec35850c4da997"));
+        //System.out.println(primaryStage.getWidth());
+        //System.out.println(primaryStage.getHeight());
 
 /*
         Label label1= new Label("This is the first scene");
@@ -72,8 +65,13 @@ public class Main extends Application {
         primaryStage.setScene(scene1);
         primaryStage.show();
         */
+        //changeScene(registerScreen);
     }
-
+/*
+    public void changeScene(Scene newScene){
+        mainStage.setScene(newScene);
+    }
+*/
     public static void main(String[] args) {
         launch(args);
     }
