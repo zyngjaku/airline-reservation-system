@@ -14,7 +14,7 @@ public class RegisterController {
     private TextField emailField;
 
     @FXML
-    private PasswordField passwordField;
+    private TextField passwordField;
 
     @FXML
     private Label errorLabel;
