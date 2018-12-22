@@ -132,3 +132,13 @@ BorderPane root = new BorderPane();
         primaryStage.setScene(scene);
         primaryStage.show();
  */
+
+/*
+line 225 workspace
+<<<<<<< HEAD
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="683" />
+    <option name="width" value="683" />
+    <option name="height" value="728" />
+=======
+ */

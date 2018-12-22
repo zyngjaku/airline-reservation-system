@@ -252,18 +252,11 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-<<<<<<< HEAD
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="683" />
-    <option name="width" value="683" />
-    <option name="height" value="728" />
-=======
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1272" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1296" />
-    <option name="height" value="1040" />
->>>>>>> 177633d233f4e415839ec08fb9fe16bb7c073b5e
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
