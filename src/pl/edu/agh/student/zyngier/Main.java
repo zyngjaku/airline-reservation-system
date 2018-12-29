@@ -27,12 +27,9 @@ public class Main extends Application {
     private static final int stageWidth = 800;
     private static final int stageHeight = 400;
 
-    public static Scene loginScreen = null, registerScreen = null;
+    public static Scene loginScreen = null, registerScreen = null, searchFlightScreen = null;
     private static BorderPane root = null;
     private static Stage mainStage;
-
-    public static Properties session = System.getProperties();
-
 
     @Override
     public void start(Stage primaryStage) throws Exception{

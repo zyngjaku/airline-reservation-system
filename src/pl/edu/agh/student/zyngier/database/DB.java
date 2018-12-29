@@ -44,16 +44,24 @@ public class DB{
     }
 
     public boolean checkIfEmailAndPasswordIsCorrect(String email, String password){
+        boolean ifUserExist = false;
         try {
             openConnection();
 
             Sha1 hash = new Sha1();
 
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT COUNT(*) FROM users WHERE email='"+ email +"' AND password='"+ hash.sha1(password) +"'");
+            rs = stmt.executeQuery("SELECT COUNT(*), u.userID, p.firstName, p.lastName, p.pesel FROM users u LEFT JOIN passengers p ON u.userID = p.passengerID WHERE u.email='"+ email +"' AND u.password='"+ hash.sha1(password) +"'");
 
             while(rs.next()){
-                if(rs.getInt(1) > 0) return true;
+                if(rs.getInt(1) > 0) ifUserExist = true;
+
+                if(ifUserExist){
+                    System.setProperty("id", rs.getString(2));
+                    System.setProperty("firstName", rs.getString(3));
+                    System.setProperty("lastName", rs.getString(4));
+                    System.setProperty("pesel", rs.getString(5));
+                }
             }
         }catch (SQLException | NoSuchAlgorithmException ex){
             // handle any error
@@ -61,30 +69,7 @@ public class DB{
             closeConnection();
         }
 
-        return false;
-    }
-
-    public String getUserID(String email, String password){
-        String ID = null;
-
-        try {
-            openConnection();
-
-            Sha1 hash = new Sha1();
-
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM users WHERE email='"+ email +"' AND password='"+ hash.sha1(password) +"'");
-
-            while(rs.next()){
-                ID = rs.getString(1);
-            }
-        }catch (SQLException | NoSuchAlgorithmException ex){
-            // handle any error
-        }finally {
-            closeConnection();
-        }
-
-        return ID;
+        return ifUserExist;
     }
 
     public boolean checkIfEmailExist(String email){
