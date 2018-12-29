@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/SearchFlight.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/search_flight.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/LoginController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/login.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/register.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -80,14 +78,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="fxml" value="918" />
-          <entry key="java" value="5563" />
+          <entry key="fxml" value="1042" />
+          <entry key="java" value="5571" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="5563" />
-          <entry key="XML" value="918" />
+          <entry key="JAVA" value="5571" />
+          <entry key="XML" value="1042" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -155,8 +153,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/DB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="62" column="62" selection-start-line="62" selection-start-column="62" selection-end-line="62" selection-end-column="62" />
+            <state relative-caret-position="227">
+              <caret line="71" column="26" selection-start-line="71" selection-start-column="26" selection-end-line="71" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -164,11 +162,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="56" column="5" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+            <state relative-caret-position="270">
+              <caret line="39" column="12" selection-start-line="39" selection-end-line="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -179,7 +177,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/MenuController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-51">
+            <state relative-caret-position="102">
               <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
             </state>
           </provider>
@@ -187,10 +185,10 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/login.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="40" column="70" selection-start-line="40" selection-start-column="47" selection-end-line="40" selection-end-column="70" />
+          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="12" column="183" selection-start-line="12" selection-start-column="183" selection-end-line="12" selection-end-column="183" />
             </state>
           </provider>
         </entry>
@@ -205,6 +203,16 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/register.fxml">
+          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="193">
+              <caret line="54" column="131" selection-start-line="54" selection-start-column="131" selection-end-line="54" selection-end-column="131" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/search_flight.fxml">
           <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
           <provider editor-type-id="text-editor">
@@ -214,21 +222,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/SearchFlight.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="221">
               <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/register.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="92" column="38" selection-start-line="92" selection-start-column="38" selection-end-line="92" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -278,15 +276,15 @@
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/MenuController.java" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/sample.fxml" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/Sha1.java" />
-        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/register.fxml" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/RegisterController.java" />
-        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/login.fxml" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Session.java" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/search_flight.fxml" />
-        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Main.java" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/LoginController.java" />
-        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/DB.java" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/SearchFlight.java" />
+        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/DB.java" />
+        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/register.fxml" />
+        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Main.java" />
+        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/login.fxml" />
       </list>
     </option>
   </component>
@@ -491,18 +489,18 @@
       <workItem from="1545391048569" duration="714000" />
       <workItem from="1545493985433" duration="2437000" />
       <workItem from="1545662477808" duration="21252000" />
-      <workItem from="1546090879671" duration="4909000" />
+      <workItem from="1546090879671" duration="7158000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65678000" />
+    <option name="totallyTimeSpent" value="67927000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.18910742" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.18910742" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -511,7 +509,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2569558" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2569558" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39934534" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -585,22 +583,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Session.java" />
-    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/register.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="92" column="38" selection-start-line="92" selection-start-column="38" selection-end-line="92" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/login.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="40" column="70" selection-start-line="40" selection-start-column="47" selection-end-line="40" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/search_flight.fxml">
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
       <provider editor-type-id="text-editor">
@@ -616,6 +598,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/SearchFlight.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/MenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
@@ -623,10 +619,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/login.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="12" column="183" selection-start-line="12" selection-start-column="183" selection-end-line="12" selection-end-column="183" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/register.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="54" column="131" selection-start-line="54" selection-start-column="131" selection-end-line="54" selection-end-column="131" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/DB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="62" column="62" selection-start-line="62" selection-start-column="62" selection-end-line="62" selection-end-column="62" />
+        <state relative-caret-position="227">
+          <caret line="71" column="26" selection-start-line="71" selection-start-column="26" selection-end-line="71" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -635,25 +647,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="56" column="5" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+        <state relative-caret-position="270">
+          <caret line="39" column="12" selection-start-line="39" selection-end-line="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/MenuController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/SearchFlight.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
         </state>
       </provider>
     </entry>

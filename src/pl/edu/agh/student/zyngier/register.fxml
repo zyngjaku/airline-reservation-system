@@ -50,66 +50,29 @@
 -->
 
 <GridPane alignment="center" hgap="10" prefHeight="400.0" prefWidth="800.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.student.zyngier.RegisterController">
-   <columnConstraints>
-      <ColumnConstraints halignment="RIGHT" maxWidth="100" minWidth="100" prefWidth="100">
-      </ColumnConstraints>
-      <ColumnConstraints hgrow="ALWAYS" maxWidth="150" minWidth="100" prefWidth="150">
-      </ColumnConstraints>
-   </columnConstraints>
 
    <!-- messageLabel -->
-   <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="RED" textOverrun="CLIP" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.rowSpan="1">
-   </Label>
-
-   <!-- First Name Label -->
-   <Label text="First name:" GridPane.columnIndex="0" GridPane.rowIndex="1">
-   </Label>
+   <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="RED" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.rowSpan="1" />
 
    <!-- First Name Text Field -->
-   <TextField fx:id="firstNameField" promptText="First Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-   <!-- Last Name Label -->
-   <Label text="Last name:" GridPane.columnIndex="0" GridPane.rowIndex="2">
-   </Label>
+   <TextField fx:id="firstNameField" promptText="First name" GridPane.rowIndex="1" />
 
    <!-- Last Name Text Field -->
-   <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-   <!-- email Label -->
-   <Label text="E-Mail" GridPane.columnIndex="0" GridPane.rowIndex="3">
-   </Label>
+   <TextField fx:id="lastNameField" promptText="Last name" GridPane.rowIndex="2" />
 
    <!-- email Text Field -->
-   <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
-   <!-- Password Label -->
-   <Label text="Password: " GridPane.columnIndex="0" GridPane.rowIndex="4">
-   </Label>
+   <TextField fx:id="emailField" promptText="E-Mail" GridPane.rowIndex="3" />
 
    <!-- Password Password Field -->
-   <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-
-   <!-- PESEL Label -->
-   <Label text="PESEL:" GridPane.columnIndex="0" GridPane.rowIndex="5">
-   </Label>
+   <PasswordField fx:id="passwordField" promptText="Password" GridPane.rowIndex="4" />
 
    <!-- PESEL Text Field -->
-   <TextField fx:id="peselField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+   <TextField fx:id="peselField" promptText="PESEL" GridPane.rowIndex="5" />
 
    <!-- Register Button -->
-   <Button mnemonicParsing="false" onAction="#registerNewUserButton" prefHeight="25.0" prefWidth="150.0" text="Register" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+   <Button mnemonicParsing="false" onAction="#registerNewUserButton" prefHeight="25.0" prefWidth="150.0" text="Register" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
 
    <!-- Login Button -->
-   <Button mnemonicParsing="false" onAction="#goToLoginSceneButton" prefHeight="25.0" prefWidth="150.0" text="Back" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+   <Button mnemonicParsing="false" onAction="#goToLoginSceneButton" prefHeight="25.0" prefWidth="150.0" text="Back" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
 
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
 </GridPane>

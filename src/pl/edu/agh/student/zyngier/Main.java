@@ -37,11 +37,10 @@ public class Main extends Application {
 
         /* Prepare scenes */
         root = new BorderPane(FXMLLoader.load(getClass().getResource("login.fxml")));
-        new MenuController().ifUserIsNotLoggedIn(mainStage, root);
+        //new MenuController().ifUserIsNotLoggedIn(mainStage, root);
         loginScreen = new Scene(root, stageWidth, stageHeight);
 
         root = new BorderPane(FXMLLoader.load(getClass().getResource("register.fxml")));
-        new MenuController().ifUserIsNotLoggedIn(mainStage, root);
         registerScreen = new Scene(root, stageWidth, stageHeight);
 
         /* Show stage */
