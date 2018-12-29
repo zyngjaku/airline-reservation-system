@@ -64,6 +64,29 @@ public class DB{
         return false;
     }
 
+    public String getUserID(String email, String password){
+        String ID = null;
+
+        try {
+            openConnection();
+
+            Sha1 hash = new Sha1();
+
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM users WHERE email='"+ email +"' AND password='"+ hash.sha1(password) +"'");
+
+            while(rs.next()){
+                ID = rs.getString(1);
+            }
+        }catch (SQLException | NoSuchAlgorithmException ex){
+            // handle any error
+        }finally {
+            closeConnection();
+        }
+
+        return ID;
+    }
+
     public boolean checkIfEmailExist(String email){
         try {
             openConnection();
@@ -77,6 +100,32 @@ public class DB{
         }catch (SQLException ex){
             // handle any error
         }finally {
+            closeConnection();
+        }
+
+        return false;
+    }
+
+    public boolean registerNewUser(String email, String password, String fisrtName, String lastName, String pesel){
+        try {
+            openConnection();
+
+            stmt = conn.createStatement();
+            stmt.executeUpdate("INSERT INTO passengers (firstName, lastName, pesel) VALUES ('"+ fisrtName +"','"+ lastName +"','"+ pesel +"')");
+
+            rs = stmt.executeQuery("SELECT * FROM passengers WHERE pesel='"+ pesel +"';");
+
+            String id = null;
+            while(rs.next()){
+                id = rs.getString(1);
+            }
+
+            Sha1 hash = new Sha1();
+
+            stmt.executeUpdate("INSERT INTO users (userID, email, password) VALUES ('"+ id +"','"+ email +"','"+ hash.sha1(password) +"')");
+        }catch (SQLException | NoSuchAlgorithmException e){
+            // handle any error
+        } finally {
             closeConnection();
         }
 

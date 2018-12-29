@@ -1,14 +1,12 @@
 package pl.edu.agh.student.zyngier;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import pl.edu.agh.student.zyngier.database.DB;
 
 public class LoginController {
@@ -20,30 +18,44 @@ public class LoginController {
     private PasswordField passwordField;
 
     @FXML
-    private Label errorLabel;
+    private Label messageLabel;
 
     @FXML
     public void initialize(){
-        errorLabel.setContentDisplay(ContentDisplay.CENTER);
+        messageLabel.setContentDisplay(ContentDisplay.CENTER);
     }
 
     @FXML
-    public void loginButton(javafx.event.ActionEvent actionEvent) {
+    public void loginUserButton(javafx.event.ActionEvent actionEvent) {
         System.out.println("LoginController: Hold on... validating your data");
         String email = emailField.getText();
         String password = passwordField.getText();
 
         DB db = new DB();
 
-        if(db.checkIfEmailAndPasswordIsCorrect(email, password)) {
-            System.out.println("LoginController: access obtained");
-            errorLabel.setText("");
-        }
+        if(!db.checkIfEmailAndPasswordIsCorrect(email, password)) setResultMessage(messageLabel,false,"Wrong email or password!");
         else {
-            System.out.println("LoginController: Wrong email or password!");
-            errorLabel.setText("Wrong email or password!");
+            setResultMessage(messageLabel, true, "");
+
+            Main.session.setProperty("id", db.getUserID(email, password));
+            //System.out.println(Main.session.getProperty("id"));
         }
     }
 
+    @FXML
+    public void goToRegisterSceneButton(javafx.event.ActionEvent actionEvent) {
+        System.out.println("[loginScreen] -> [registerScreen]");
+        setResultMessage(messageLabel, true, "");
+
+        Main.getState().setScene(Main.registerScreen);
+    }
+
+    private void setResultMessage(Label messageLabel, Boolean status, String message){
+        if(!message.equals("")) System.out.println(this.getClass().getSimpleName() + ": " + message);
+
+        if(status) messageLabel.setTextFill(Color.GREEN);
+        else messageLabel.setTextFill(Color.RED);
+        messageLabel.setText(message);
+    }
 
 }
