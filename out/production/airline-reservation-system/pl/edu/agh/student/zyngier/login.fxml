@@ -13,10 +13,10 @@
     <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="RED" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
 
     <!-- email Text Field -->
-    <TextField fx:id="emailField" promptText="E-Mail" GridPane.rowIndex="1" />
+    <TextField fx:id="emailField" text="admin@adminowo.com" promptText="E-Mail" GridPane.rowIndex="1" />
 
     <!-- Password Password Field -->
-    <PasswordField fx:id="passwordField" promptText="Password" GridPane.rowIndex="2" />
+    <PasswordField fx:id="passwordField" text="adminadminowo" promptText="Password" GridPane.rowIndex="2" />
 
     <!-- Login Button -->
     <Button mnemonicParsing="false" onAction="#loginUserButton" prefHeight="25.0" prefWidth="150.0" text="Login" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" />

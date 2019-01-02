@@ -8,10 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import pl.edu.agh.student.zyngier.database.DB;
 
 import java.io.IOException;
@@ -44,13 +42,17 @@ public class LoginController {
         else {
             setResultMessage(messageLabel, true, "");
 
+            /* Clear login and password */
+            emailField.setText(null);
+            passwordField.setText(null);
+
             /* Prepare scene */
-            BorderPane root = new BorderPane(FXMLLoader.load(getClass().getResource("search_flight.fxml")));
-            Scene searchFlightScreen = new Scene(root, 800, 400);
+            BorderPane root = new BorderPane(FXMLLoader.load(getClass().getResource("menu.fxml")));
+            Scene menuScene = new Scene(root, 800, 400);
 
             /* Go to new scene */
-            System.out.println("[loginScreen] -> [searchFlightScene]");
-            Main.getState().setScene(searchFlightScreen);
+            System.out.println("[loginScreen] -> [menuScene]");
+            Main.getState().setScene(menuScene);
         }
     }
 
@@ -58,6 +60,10 @@ public class LoginController {
     public void goToRegisterSceneButton(javafx.event.ActionEvent actionEvent) {
         System.out.println("[loginScreen] -> [registerScreen]");
         setResultMessage(messageLabel, true, "");
+
+        /* Clear login and password */
+        emailField.setText(null);
+        passwordField.setText(null);
 
         Main.getState().setScene(Main.registerScreen);
     }

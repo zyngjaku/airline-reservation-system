@@ -17,9 +17,23 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import jdk.nashorn.internal.parser.JSONParser;
 import pl.edu.agh.student.zyngier.database.DB;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.*;
 
 public class Main extends Application {
     public static final String AIRLINE_NAME = "Example Airline";
@@ -27,7 +41,9 @@ public class Main extends Application {
     private static final int stageWidth = 800;
     private static final int stageHeight = 400;
 
-    public static Scene loginScreen = null, registerScreen = null, searchFlightScreen = null;
+    public static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    public static Scene loginScreen = null, registerScreen = null;
     private static BorderPane root = null;
     private static Stage mainStage;
 
@@ -48,7 +64,6 @@ public class Main extends Application {
         mainStage.setScene(loginScreen);
         mainStage.show();
     }
-
 
     public static Stage getState() {
 

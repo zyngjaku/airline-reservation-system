@@ -1,42 +1,65 @@
 package pl.edu.agh.student.zyngier;
 
-import javafx.application.Platform;
-import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
+import javafx.scene.paint.Color;
+import pl.edu.agh.student.zyngier.database.DB;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MenuController {
 
-    MenuController(){
+    @FXML
+    private Label messageLabel;
+
+    @FXML
+    public void initialize(){
+        messageLabel.setContentDisplay(ContentDisplay.CENTER);
+        messageLabel.setTextFill(Color.BLACK);
+
+        messageLabel.setText("Hello " + System.getProperty("firstName") + " " + System.getProperty("lastName"));
+    }
+
+    @FXML
+    public void searchFlightButton(javafx.event.ActionEvent actionEvent) throws IOException {
+        BorderPane root = new BorderPane(FXMLLoader.load(getClass().getResource("search_flight.fxml")));
+        Scene searchFlightScene = new Scene(root, 800, 400);
+
+        System.out.println("[menuScene] -> [searchFlightScene]");
+
+        Main.getState().setScene(searchFlightScene);
+    }
+
+    @FXML
+    public void bookedFlightButton(javafx.event.ActionEvent actionEvent) {
+        System.out.println("booked");
 
     }
 
-    public void ifUserIsNotLoggedIn(Stage primaryStage,  BorderPane root) {
-        MenuBar menuBar = new MenuBar();
-        menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
-        root.setTop(menuBar);
+    @FXML
+    public void profileButton(javafx.event.ActionEvent actionEvent) {
+        System.out.println("Profile id: " + System.getProperty("id"));
+        System.out.println("First name: " + System.getProperty("firstName"));
+        System.out.println("Last name: " + System.getProperty("lastName"));
+        System.out.println("PESEL: " + System.getProperty("pesel"));
 
-        Menu login = new Menu("Login");
-        Menu register = new Menu("Register");
-
-
-        menuBar.getMenus().addAll(login, register);
     }
 
-    public void ifUserIsLoggedIn(Stage primaryStage,  BorderPane root) {
-        MenuBar menuBar = new MenuBar();
-        menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
-        root.setTop(menuBar);
+    @FXML
+    public void logoutButton(javafx.event.ActionEvent actionEvent) {
+        System.out.println("[menuScreen] -> [loginScreen]");
 
-        Menu logout = new Menu("Logout");
+        System.clearProperty("id");
+        System.clearProperty("firstName");
+        System.clearProperty("lastName");
+        System.clearProperty("pesel");
 
-        menuBar.getMenus().addAll(logout);
+        Main.getState().setScene(Main.loginScreen);
     }
 
 }
