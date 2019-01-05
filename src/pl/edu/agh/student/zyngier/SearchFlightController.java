@@ -1,5 +1,6 @@
 package pl.edu.agh.student.zyngier;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -12,23 +13,35 @@ import java.util.ArrayList;
 public class SearchFlightController {
 
     @FXML
-    private Label messageLabel;
-
-    @FXML
     private ChoiceBox departureAirportChoice;
 
     @FXML
     private ChoiceBox arrivalAirportChoice;
 
     @FXML
-    private DatePicker departureDate;
+    private DatePicker flyOutDate;
+
+    @FXML
+    private DatePicker flyBackDate;
+
+    @FXML
+    private RadioButton returnRadioButton;
+
+    @FXML
+    private RadioButton oneWayRadioButton;
+
+    @FXML
+    private ToggleGroup typeOfTripGroup;
+
+    @FXML
+    private TableView firstWayFlight;
 
     @FXML
     public void initialize(){
-        messageLabel.setContentDisplay(ContentDisplay.CENTER);
-        messageLabel.setTextFill(Color.BLACK);
+        //messageLabel.setContentDisplay(ContentDisplay.CENTER);
+        //messageLabel.setTextFill(Color.BLACK);
 
-        messageLabel.setText("Hi " + System.getProperty("firstName") + " " + System.getProperty("lastName"));
+        //messageLabel.setText("Hi " + System.getProperty("firstName") + " " + System.getProperty("lastName"));
 
         DB db =  new DB();
         ArrayList<String> departureAirports = db.getDepartureAirports();
@@ -37,6 +50,17 @@ public class SearchFlightController {
             departureAirportChoice.getItems().add(it);
         }
     }
+
+    @FXML
+    private void returnRadioButton(ActionEvent event) {
+        flyBackDate.setDisable(false);
+    }
+
+    @FXML
+    private void oneWayRadioButton(ActionEvent event) {
+        flyBackDate.setDisable(true);
+    }
+
 
     @FXML
     public void departureAirportChoice(javafx.event.ActionEvent actionEvent) {
@@ -51,24 +75,34 @@ public class SearchFlightController {
 
     @FXML
     public void arrivalAirportChoice(javafx.event.ActionEvent actionEvent) {
-        departureDate.setValue(null);
+        flyOutDate.setValue(null);
 
         if(arrivalAirportChoice.getValue() != null) {
-            DB db = new DB();
-            ArrayList<DayOfWeek> flightDate = db.getFlightDays(departureAirportChoice.getValue().toString(), arrivalAirportChoice.getValue().toString());
-
-            System.out.println(flightDate);
-
-            departureDate.setDayCellFactory(picker -> new DateCell() {
-                public void updateItem(LocalDate date, boolean empty) {
-                    super.updateItem(date, empty);
-                    LocalDate today = LocalDate.now();
-
-                    setDisable(empty || date.compareTo(today) < 0 || !flightDate.contains(date.getDayOfWeek()));
-                }
-            });
+            manageDatePicker(flyOutDate, departureAirportChoice, arrivalAirportChoice);
+            manageDatePicker(flyBackDate, arrivalAirportChoice, departureAirportChoice);
         }
     }
 
+    private void manageDatePicker(DatePicker datePicker, ChoiceBox departureAirportChoice, ChoiceBox arrivalAirportChoice){
+        DB db = new DB();
 
+        ArrayList<DayOfWeek> flightDate = db.getFlightDays(departureAirportChoice.getValue().toString(), arrivalAirportChoice.getValue().toString());
+
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                LocalDate today = LocalDate.now();
+
+                setDisable(empty || date.compareTo(today) < 0 || !flightDate.contains(date.getDayOfWeek()));
+            }
+        });
+    }
+
+    @FXML
+    public void findFlightButton(javafx.event.ActionEvent actionEvent) {
+        System.out.println("Finding flight");
+
+        if(returnRadioButton == (RadioButton) typeOfTripGroup.getSelectedToggle())
+            System.out.println("CLicked");
+    }
 }

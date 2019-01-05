@@ -216,7 +216,7 @@ public class DB{
             rs = stmt.executeQuery("SELECT firstFlightDate, lastFlightDate FROM flights WHERE airportDeparture='"+ departureAirport +"' and airportArrival='"+ arrivalAirport +"'");
 
             rs.next();
-            dates.add(rs.getString(1));
+            //dates.add(rs.getString(1));
 
         }catch (SQLException e){
             // handle any error
