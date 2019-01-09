@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -50,7 +52,22 @@
                   <ChoiceBox fx:id="arrivalAirportChoice" onAction="#arrivalAirportChoice" prefHeight="25.0" prefWidth="160.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <DatePicker fx:id="flyOutDate" prefHeight="25.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <DatePicker fx:id="flyBackDate" prefHeight="25.0" prefWidth="160.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <Button onAction="#findFlightButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="160.0" text="Fly" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <Button mnemonicParsing="false" onAction="#findFlightButton" prefHeight="25.0" prefWidth="160.0" text="Fly" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <ChoiceBox prefHeight="25.0" prefWidth="160.0" value="1 passenger" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                      <items>
+                          <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="1 passenger" />
+                              <String fx:value="2 passengers" />
+                              <String fx:value="3 passengers" />
+                              <String fx:value="4 passengers" />
+                              <String fx:value="5 passengers" />
+                              <String fx:value="6 passengers" />
+                              <String fx:value="7 passengers" />
+                              <String fx:value="8 passengers" />
+                              <String fx:value="9 passengers" />
+                          </FXCollections>
+                      </items>
+                  </ChoiceBox>
                </children>
             </GridPane>
             <GridPane GridPane.columnIndex="1">
@@ -62,14 +79,25 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TableView fx:id="firstWayFlight" prefHeight="200.0" prefWidth="200.0">
-                    <columns>
-                      <TableColumn editable="false" prefWidth="75.0" resizable="false" sortable="false" text="From" />
-                      <TableColumn editable="false" prefWidth="75.0" resizable="false" sortable="false" text="To" />
-                        <TableColumn editable="false" prefWidth="75.0" resizable="false" sortable="false" />
-                        <TableColumn editable="false" prefWidth="75.0" resizable="false" sortable="false" text="To" />
-                        <TableColumn editable="false" prefWidth="75.0" resizable="false" sortable="false" text="Price" />
-                    </columns>
+                   <TableView fx:id="firstWayFlightTable" prefHeight="200.0" prefWidth="200.0">
+                       <columns>
+                           <TableColumn fx:id="firstWayFlightTable_fromColumn" editable="false" prefWidth="50.0" resizable="false" sortable="false" text="From" />
+                           <TableColumn fx:id="firstWayFlightTable_toColumn" editable="false" prefWidth="50.0" resizable="false" sortable="false" text="To" />
+                           <TableColumn fx:id="firstWayFlightTable_departureTimeColumn" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Departure time" />
+                           <TableColumn fx:id="firstWayFlightTable_arrivalTimeColumn" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Arrival time" />
+                           <TableColumn fx:id="firstWayFlightTable_priceColumn" editable="false" prefWidth="50.0" resizable="false" sortable="false" text="Price" />
+                           <TableColumn fx:id="firstWayFlightTable_chooseColumn" editable="false" prefWidth="50.0" resizable="false" sortable="false" text="Book" />
+                       </columns>
+                   </TableView>
+                  <TableView fx:id="returnWayFlightTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                      <columns>
+                          <TableColumn fx:id="returnWayFlightTable_fromColumn" editable="false" prefWidth="50.0" resizable="false" sortable="false" text="From" />
+                          <TableColumn fx:id="returnWayFlightTable_toColumn" editable="false" prefWidth="50.0" resizable="false" sortable="false" text="To" />
+                          <TableColumn fx:id="returnWayFlightTable_departureTimeColumn" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Departure time" />
+                          <TableColumn fx:id="returnWayFlightTable_arrivalTimeColumn" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Arrival time" />
+                          <TableColumn fx:id="returnWayFlightTable_priceColumn" editable="false" prefWidth="50.0" resizable="false" sortable="false" text="Price" />
+                          <TableColumn fx:id="returnWayFlightTable_chooseColumn" editable="false" prefWidth="50.0" resizable="false" sortable="false" text="Book" />
+                      </columns>
                   </TableView>
                </children>
             </GridPane>

@@ -1,16 +1,15 @@
 package pl.edu.agh.student.zyngier.database;
 
 import com.mysql.cj.util.StringUtils;
+import pl.edu.agh.student.zyngier.Flights;
 import pl.edu.agh.student.zyngier.Main;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 import java.time.DayOfWeek;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
 
 import static java.time.DayOfWeek.*;
 
@@ -25,7 +24,7 @@ public class DB{
     private ResultSet rs = null;
 
 
-    private void openConnection(){
+    public void openConnection(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             conn = DriverManager.getConnection("jdbc:mysql://"+ DB_HOST +"/"+ DB_NAME +"", DB_USER, DB_PASSWORD);
@@ -36,7 +35,7 @@ public class DB{
         }catch(Exception e){e.printStackTrace();}
     }
 
-    private void closeConnection(){
+    public void closeConnection(){
         if (rs != null) {
             try {
                 rs.close();
@@ -84,8 +83,6 @@ public class DB{
 
     public boolean checkIfEmailExist(String email){
         try {
-            openConnection();
-
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT COUNT(*) FROM users WHERE email='"+ email +"'");
 
@@ -94,8 +91,6 @@ public class DB{
             }
         }catch (SQLException ex){
             // handle any error
-        }finally {
-            closeConnection();
         }
 
         return false;
@@ -103,8 +98,6 @@ public class DB{
 
     public boolean registerNewUser(String email, String password, String fisrtName, String lastName, String pesel){
         try {
-            openConnection();
-
             stmt = conn.createStatement();
             stmt.executeUpdate("INSERT INTO passengers (firstName, lastName, pesel) VALUES ('"+ fisrtName +"','"+ lastName +"','"+ pesel +"')");
 
@@ -120,8 +113,6 @@ public class DB{
             stmt.executeUpdate("INSERT INTO users (userID, email, password) VALUES ('"+ id +"','"+ email +"','"+ hash.sha1(password) +"')");
         }catch (SQLException | NoSuchAlgorithmException e){
             // handle any error
-        } finally {
-            closeConnection();
         }
 
         return false;
@@ -131,20 +122,16 @@ public class DB{
         ArrayList<String> departureAirports = new ArrayList<String>();
 
         try {
-            openConnection();
-
             Date date = new Date();
 
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT airportDeparture FROM flights WHERE lastFlightDate>NOW()");
+            rs = stmt.executeQuery("SELECT DISTINCT airportDeparture FROM flights WHERE lastFlightDate>NOW()");
 
             while(rs.next()){
                 departureAirports.add(rs.getString(1));
             }
         }catch (SQLException e){
             // handle any error
-        } finally {
-            closeConnection();
         }
 
         return departureAirports;
@@ -154,20 +141,16 @@ public class DB{
         ArrayList<String> arrivalAirports = new ArrayList<String>();
 
         try {
-            openConnection();
-
             Date date = new Date();
 
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT airportArrival FROM flights WHERE airportDeparture='"+ departureAirport +"' AND lastFlightDate>NOW()");
+            rs = stmt.executeQuery("SELECT DISTINCT airportArrival FROM flights WHERE airportDeparture='"+ departureAirport +"' AND lastFlightDate>NOW()");
 
             while(rs.next()){
                 arrivalAirports.add(rs.getString(1));
             }
         }catch (SQLException e){
             // handle any error
-        } finally {
-            closeConnection();
         }
 
         return arrivalAirports;
@@ -175,10 +158,9 @@ public class DB{
 
     public ArrayList<DayOfWeek> getFlightDays(String departureAirport, String arrivalAirport){
         ArrayList<DayOfWeek> flightDays = new ArrayList<>();
+        List<DayOfWeek> tmp_days = Arrays.asList(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY);
 
         try {
-            openConnection();
-
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT flightDay FROM flights WHERE airportDeparture='"+ departureAirport +"' and airportArrival='"+ arrivalAirport +"'");
 
@@ -186,21 +168,17 @@ public class DB{
 
             while(rs.next()){
                 getDays = rs.getString(1);
-            }
+                List<String> tmp_values = Arrays.asList(getDays.split(";"));
 
-            List<String> tmp_values = Arrays.asList(getDays.split(";"));
-            List<DayOfWeek> tmp_days = Arrays.asList(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY);
-
-            for(int i=0; i<tmp_values.size(); i++){
-                if(tmp_values.get(i).equals("1")){
-                    flightDays.add(tmp_days.get(i));
+                for(int i=0; i<tmp_values.size(); i++){
+                    if(tmp_values.get(i).equals("1")){
+                        flightDays.add(tmp_days.get(i));
+                    }
                 }
             }
 
         }catch (SQLException e){
             // handle any error
-        } finally {
-            closeConnection();
         }
 
         return flightDays;
@@ -210,8 +188,6 @@ public class DB{
         ArrayList<Date> dates = new ArrayList<>();
 
         try {
-            openConnection();
-
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT firstFlightDate, lastFlightDate FROM flights WHERE airportDeparture='"+ departureAirport +"' and airportArrival='"+ arrivalAirport +"'");
 
@@ -220,10 +196,56 @@ public class DB{
 
         }catch (SQLException e){
             // handle any error
-        } finally {
-            closeConnection();
         }
 
         return dates;
+    }
+
+    public ArrayList<Flights> getFlights(String departureAirport, String arrivalAirport, String flightDate){
+        ArrayList<Flights> flights = new ArrayList<Flights>();
+
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT f.flightNumber, f.timeDeparture, f.timeArrival, (j.numberofRows*j.numberOfColumns-COUNT(t.ticketNumber)) as 'numberOfAvailableSeats', f.basePrice FROM flights f LEFT JOIN tickets t ON f.flightNumber=t.flightNumber AND t.flightDate='"+ flightDate +"' LEFT JOIN jets j ON f.jetNumber=j.jetNumber WHERE f.airportDeparture='"+ departureAirport +"' AND f.airportArrival='"+ arrivalAirport +"' AND '"+ flightDate +"' BETWEEN f.firstFlightDate AND f.lastFlightDate GROUP BY t.flightNumber, t.flightDate;");
+            while(rs.next()){
+                System.out.println(rs);
+                if(rs.getInt(4)>0){
+                    String price = Double.toString(rs.getInt(4));
+
+                    if(rs.getInt(4)<10){
+                        price = Double.toString(rs.getInt(5) * 3);
+                    }
+                    else if(rs.getInt(4)<20){
+                        price = Double.toString(rs.getInt(5) * 2.5);
+                    }
+                    else if(rs.getInt(4)<30){
+                        price = Double.toString(rs.getInt(5) * 2.25);
+                    }
+                    else if(rs.getInt(4)<50){
+                        price = Double.toString(rs.getInt(5) * 2);
+                    }
+                    else if(rs.getInt(4)<100){
+                        price = Double.toString(rs.getInt(5) * 1.5);
+                    }
+                    else if(rs.getInt(4)<150){
+                        price = Double.toString(rs.getInt(5) * 1);
+                    }
+                    else if(rs.getInt(4)<160){
+                        price = Double.toString(rs.getInt(5) * 0.8);
+                    }
+                    else{
+                        price = Double.toString(rs.getInt(5) * 0.6);
+                    }
+                    
+                    price += "\u20AC";
+
+                    flights.add(new Flights(departureAirport, arrivalAirport, rs.getString(2), rs.getString(3), price));
+                }
+            }
+        }catch (SQLException e){
+            // handle any error
+        }
+
+        return flights;
     }
 }

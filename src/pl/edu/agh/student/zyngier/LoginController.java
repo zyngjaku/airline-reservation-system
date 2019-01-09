@@ -37,6 +37,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         DB db = new DB();
+        db.openConnection();
 
         if(!db.checkIfEmailAndPasswordIsCorrect(email, password)) setResultMessage(messageLabel,false,"Wrong email or password!");
         else {
@@ -54,6 +55,7 @@ public class LoginController {
             System.out.println("[loginScreen] -> [menuScene]");
             Main.getState().setScene(menuScene);
         }
+
     }
 
     @FXML

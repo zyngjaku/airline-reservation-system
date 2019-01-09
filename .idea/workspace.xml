@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/test.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Flights.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/RegisterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/RegisterController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/SearchFlightController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/SearchFlightController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/SearchFlightController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/SearchFlightController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/database/DB.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/database/DB.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/search_flight.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/airline-reservation-system/pl/edu/agh/student/zyngier/search_flight.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/RegisterController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/SearchFlightController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/SearchFlightController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/DB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/search_flight.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/search_flight.fxml" afterDir="false" />
@@ -66,11 +70,12 @@
     <session id="1104260390">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="10" />
+          <entry key="project.closed" value="11" />
           <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.2" value="2" />
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.31" value="1" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.42" value="1" />
           <entry key="project.open.time.46" value="1" />
@@ -79,33 +84,34 @@
           <entry key="project.open.time.58" value="1" />
           <entry key="project.open.time.59" value="1" />
           <entry key="project.open.time.63" value="1" />
-          <entry key="project.open.time.64" value="1" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.open.time.64" value="2" />
+          <entry key="project.open.time.74" value="1" />
+          <entry key="project.opened" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="20" />
-          <entry key="fxml" value="1535" />
-          <entry key="java" value="8377" />
+          <entry key="fxml" value="1649" />
+          <entry key="java" value="11374" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="8377" />
+          <entry key="JAVA" value="11374" />
           <entry key="PLAIN_TEXT" value="20" />
-          <entry key="XML" value="1535" />
+          <entry key="XML" value="1649" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="fxml" value="7" />
-          <entry key="java" value="15" />
+          <entry key="java" value="20" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="15" />
+          <entry key="JAVA" value="20" />
           <entry key="XML" value="7" />
         </counts>
       </usages-collector>
@@ -159,14 +165,40 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/DB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="218" column="14" selection-start-line="218" selection-start-column="14" selection-end-line="218" selection-end-column="14" />
+            <state relative-caret-position="125">
+              <caret line="239" column="117" selection-start-line="239" selection-start-column="117" selection-end-line="239" selection-end-column="117" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#6809#6818#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Flights.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-11" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/LoginController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="161">
+              <caret line="52" selection-start-line="52" selection-end-line="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/RegisterController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -174,8 +206,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="59" column="66" selection-start-line="59" selection-start-column="66" selection-end-line="59" selection-end-column="66" />
+            <state relative-caret-position="697">
+              <caret line="76" column="1" selection-start-line="76" selection-start-column="1" selection-end-line="76" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -185,25 +217,19 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/search_flight.fxml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="52" column="37" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="986">
+              <caret line="58" column="59" selection-start-line="58" selection-start-column="59" selection-end-line="58" selection-end-column="59" />
             </state>
           </provider>
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+          <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/SearchFlightController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="102" column="59" selection-start-line="102" selection-start-column="59" selection-end-line="102" selection-end-column="59" />
-              <folding>
-                <element signature="e#1230#1231#0" expanded="true" />
-                <element signature="e#1275#1276#0" expanded="true" />
-                <element signature="e#1342#1343#0" expanded="true" />
-                <element signature="e#1386#1387#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="340">
+              <caret line="208" selection-start-line="208" selection-end-line="208" />
             </state>
           </provider>
         </entry>
@@ -213,8 +239,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -224,6 +250,10 @@
       <find>ID:</find>
       <find>hash</find>
       <find>Arrival</find>
+      <find>flights.add(new Flights(&quot;KRK&quot;, &quot;BGY&quot;, &quot;10:00&quot;, &quot;11:25&quot;, &quot;200&quot;));</find>
+      <find>colBtn</find>
+      <find>table</find>
+      <find>Days</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -245,21 +275,22 @@
         <option value="$PROJECT_DIR$/src/MenuController.java" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/sample.fxml" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/Sha1.java" />
-        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/RegisterController.java" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Session.java" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/SearchFlight.java" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/register.fxml" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/menu.fxml" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/login.fxml" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/SerachFlightController.java" />
-        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/LoginController.java" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/MenuController.java" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Main.java" />
-        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/DB.java" />
         <option value="$PROJECT_DIR$/src/test.fxml" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/test.fxml" />
+        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/LoginController.java" />
+        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/RegisterController.java" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/search_flight.fxml" />
+        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Flights.java" />
         <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/SearchFlightController.java" />
+        <option value="$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/DB.java" />
       </list>
     </option>
   </component>
@@ -270,11 +301,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1296" />
-    <option name="height" value="1000" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="683" />
+    <option name="width" value="683" />
+    <option name="height" value="728" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -287,7 +317,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -318,6 +347,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -333,7 +363,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546709308071" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546854569761" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../agh-po/lab6/Shape" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -469,18 +499,21 @@
       <workItem from="1546170836101" duration="6826000" />
       <workItem from="1546349328667" duration="8837000" />
       <workItem from="1546425143222" duration="438000" />
-      <workItem from="1546636401104" duration="7915000" />
+      <workItem from="1546636401104" duration="8244000" />
+      <workItem from="1546782969392" duration="8415000" />
+      <workItem from="1546855898830" duration="3504000" />
+      <workItem from="1546966999536" duration="5216000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92695000" />
+    <option name="totallyTimeSpent" value="110159000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.20121029" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.18003026" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -489,7 +522,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.24386252" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2487725" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39934534" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -600,13 +633,6 @@
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/RegisterController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="70" column="36" selection-start-line="70" selection-start-column="36" selection-end-line="70" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/menu.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -615,31 +641,7 @@
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/LoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="53" column="59" selection-start-line="53" selection-start-column="59" selection-end-line="53" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/DB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="218" column="14" selection-start-line="218" selection-start-column="14" selection-end-line="218" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test.fxml" />
     <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/register.fxml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="918">
@@ -663,10 +665,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/lang/Void.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/RegisterController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="59" column="66" selection-start-line="59" selection-start-column="66" selection-end-line="59" selection-end-column="66" />
+        <state relative-caret-position="697">
+          <caret line="76" column="1" selection-start-line="76" selection-start-column="1" selection-end-line="76" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -674,22 +690,39 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/search_flight.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="52" column="37" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="986">
+          <caret line="58" column="59" selection-start-line="58" selection-start-column="59" selection-end-line="58" selection-end-column="59" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/Flights.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-11" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/SearchFlightController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="102" column="59" selection-start-line="102" selection-start-column="59" selection-end-line="102" selection-end-column="59" />
+        <state relative-caret-position="340">
+          <caret line="208" selection-start-line="208" selection-end-line="208" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/edu/agh/student/zyngier/database/DB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="239" column="117" selection-start-line="239" selection-start-column="117" selection-end-line="239" selection-end-column="117" />
           <folding>
-            <element signature="e#1230#1231#0" expanded="true" />
-            <element signature="e#1275#1276#0" expanded="true" />
-            <element signature="e#1342#1343#0" expanded="true" />
-            <element signature="e#1386#1387#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#6809#6818#0" expanded="true" />
           </folding>
         </state>
       </provider>

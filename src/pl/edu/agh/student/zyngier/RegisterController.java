@@ -55,12 +55,16 @@ public class RegisterController {
                     if (passwordField.getText().length() < 6) setResultMessage(messageLabel, false, "Password is too short (min. 6 characters)");
                     else {
                         DB db = new DB();
+                        db.openConnection();
+
                         //Checking if email exist in database
                         if (db.checkIfEmailExist(emailField.getText())) setResultMessage(messageLabel, false, "This email still exist");
                         else {
                             setResultMessage(messageLabel, true, "Successfully created account");
                             db.registerNewUser(emailField.getText(), passwordField.getText(), firstNameField.getText(), lastNameField.getText(), peselField.getText());
                         }
+
+                        db.closeConnection();
                     }
                 }
             }
