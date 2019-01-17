@@ -1,8 +1,4 @@
-package pl.edu.agh.student.zyngier.database;
-
-import com.mysql.cj.util.StringUtils;
-import pl.edu.agh.student.zyngier.Flights;
-import pl.edu.agh.student.zyngier.Main;
+package pl.edu.agh.student.zyngier.service;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -208,7 +204,6 @@ public class DB{
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT f.flightNumber, f.timeDeparture, f.timeArrival, (j.numberofRows*j.numberOfColumns-COUNT(t.ticketNumber)) as 'numberOfAvailableSeats', f.basePrice FROM flights f LEFT JOIN tickets t ON f.flightNumber=t.flightNumber AND t.flightDate='"+ flightDate +"' LEFT JOIN jets j ON f.jetNumber=j.jetNumber WHERE f.airportDeparture='"+ departureAirport +"' AND f.airportArrival='"+ arrivalAirport +"' AND '"+ flightDate +"' BETWEEN f.firstFlightDate AND f.lastFlightDate GROUP BY t.flightNumber, t.flightDate;");
             while(rs.next()){
-                System.out.println(rs);
                 if(rs.getInt(4)>0){
                     String price = Double.toString(rs.getInt(4));
 
@@ -236,10 +231,10 @@ public class DB{
                     else{
                         price = Double.toString(rs.getInt(5) * 0.6);
                     }
-                    
+
                     price += "\u20AC";
 
-                    flights.add(new Flights(departureAirport, arrivalAirport, rs.getString(2), rs.getString(3), price));
+                    flights.add(new Flights(departureAirport, arrivalAirport, flightDate, (rs.getString(2)).substring(0, (rs.getString(2)).length() - 3), (rs.getString(3)).substring(0, (rs.getString(3)).length() - 3), price));
                 }
             }
         }catch (SQLException e){

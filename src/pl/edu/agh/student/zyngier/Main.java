@@ -1,39 +1,17 @@
 package pl.edu.agh.student.zyngier;
 
-import com.sun.javafx.application.LauncherImpl;
+import javafx.fxml.FXML;
+
 import javafx.application.Application;
-import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
-import jdk.nashorn.internal.parser.JSONParser;
-import pl.edu.agh.student.zyngier.database.DB;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.*;
 
 public class Main extends Application {
     public static final String AIRLINE_NAME = "Example Airline";
@@ -52,14 +30,14 @@ public class Main extends Application {
         mainStage = primaryStage;
 
         /* Prepare scenes */
-        root = new BorderPane(FXMLLoader.load(getClass().getResource("login.fxml")));
-        //new MenuController().ifUserIsNotLoggedIn(mainStage, root);
+        root = new BorderPane(FXMLLoader.load(getClass().getResource("fxml/login.fxml")));
         loginScreen = new Scene(root, stageWidth, stageHeight);
 
-        root = new BorderPane(FXMLLoader.load(getClass().getResource("register.fxml")));
+        root = new BorderPane(FXMLLoader.load(getClass().getResource("fxml/register.fxml")));
         registerScreen = new Scene(root, stageWidth, stageHeight);
 
         /* Show stage */
+        mainStage.setResizable(false);
         mainStage.setTitle(AIRLINE_NAME + " Reservation System");
         mainStage.setScene(loginScreen);
         mainStage.show();

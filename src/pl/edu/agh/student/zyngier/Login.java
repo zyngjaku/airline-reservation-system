@@ -11,7 +11,7 @@ public class Login extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
         
         primaryStage.setTitle(AIRLINE_NAME + " Reservation System");
         primaryStage.setScene(new Scene(root));

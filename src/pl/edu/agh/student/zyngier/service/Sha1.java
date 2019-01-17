@@ -1,4 +1,4 @@
-package pl.edu.agh.student.zyngier.database;
+package pl.edu.agh.student.zyngier.service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

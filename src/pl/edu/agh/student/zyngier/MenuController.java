@@ -2,15 +2,16 @@ package pl.edu.agh.student.zyngier;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import pl.edu.agh.student.zyngier.database.DB;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MenuController {
 
@@ -27,7 +28,7 @@ public class MenuController {
 
     @FXML
     public void searchFlightButton(javafx.event.ActionEvent actionEvent) throws IOException {
-        BorderPane root = new BorderPane(FXMLLoader.load(getClass().getResource("search_flight.fxml")));
+        BorderPane root = new BorderPane(FXMLLoader.load(getClass().getResource("fxml/search_flight.fxml")));
         Scene searchFlightScene = new Scene(root, 800, 400);
 
         System.out.println("[menuScene] -> [searchFlightScene]");

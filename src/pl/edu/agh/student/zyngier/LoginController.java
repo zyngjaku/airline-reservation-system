@@ -10,7 +10,9 @@ import javafx.scene.control.TextField;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import pl.edu.agh.student.zyngier.database.DB;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import pl.edu.agh.student.zyngier.service.DB;
 
 import java.io.IOException;
 
@@ -48,7 +50,7 @@ public class LoginController {
             passwordField.setText(null);
 
             /* Prepare scene */
-            BorderPane root = new BorderPane(FXMLLoader.load(getClass().getResource("menu.fxml")));
+            BorderPane root = new BorderPane(FXMLLoader.load(getClass().getResource("fxml/menu.fxml")));
             Scene menuScene = new Scene(root, 800, 400);
 
             /* Go to new scene */
