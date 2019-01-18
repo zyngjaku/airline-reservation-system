@@ -2,12 +2,16 @@ package pl.edu.agh.student.zyngier;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import pl.edu.agh.student.zyngier.service.DB;
-import pl.edu.agh.student.zyngier.service.Flights;
+import javafx.scene.layout.BorderPane;
+import pl.edu.agh.student.zyngier.services.DB;
+import pl.edu.agh.student.zyngier.services.Flights;
 
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -82,6 +86,15 @@ public class SearchFlightController {
     @FXML
     private Button bookFlightButton;
 
+    private int firstWaySeatRow;
+    private char firstWaySeatColumn;
+
+    private int returnWaySeatRow;
+    private char returnWaySeatColumn;
+
+    private Flights firstWayFlight = null;
+    private Flights returnWayFlight = null;
+
     @FXML
     public void initialize(){
         firstWayFlightSummaryLabel.setText(null);
@@ -107,9 +120,8 @@ public class SearchFlightController {
         firstWayFlightTable_priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         firstWayFlightTable.setOnMouseClicked((MouseEvent event) -> {
-            if (event.getClickCount() > 1 && firstWayFlightTable.getSelectionModel().getSelectedItem() != null) {
-                Flights selectedPerson = firstWayFlightTable.getSelectionModel().getSelectedItem();
-                setSummaryText(firstWayFlightSummaryLabel, selectedPerson);
+            if (event.getClickCount() > 1) {
+                actionOnChooseFlight(firstWayFlightTable, firstWayFlightSummaryLabel);
             }
         });
 
@@ -122,20 +134,56 @@ public class SearchFlightController {
         returnWayFlightTable_priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         returnWayFlightTable.setOnMouseClicked((MouseEvent event) -> {
-            if (event.getClickCount() > 1 && returnWayFlightTable.getSelectionModel().getSelectedItem() != null) {
-                Flights selectedPerson = returnWayFlightTable.getSelectionModel().getSelectedItem();
-                setSummaryText(returnWayFlightSummaryLabel, selectedPerson);
+            if (event.getClickCount() > 1) {
+                actionOnChooseFlight(returnWayFlightTable, returnWayFlightSummaryLabel);
             }
         });
     }
 
-    private void setSummaryText(Label label, Flights flight){
+    private void actionOnChooseFlight(TableView<Flights> table, Label label){
+        if (table.getSelectionModel().getSelectedItem() != null) {
+            Flights selectedFlight = table.getSelectionModel().getSelectedItem();
+            System.out.println("Run choosing seats stage");
+
+            SeatsController seatsController = new SeatsController(selectedFlight.getFlightNumber(), selectedFlight.getFlightDate());
+
+            seatsController.seatStage.setOnHiding( event -> {
+                if(seatsController.getSeatColumn() != 'X' && seatsController.getSeatRow() != 0) {
+                    setSummaryText(label, selectedFlight, seatsController.getSeatRow(), seatsController.getSeatColumn());
+
+                    if(table == firstWayFlightTable) {
+                        setSeatsInFirstWay(seatsController.getSeatRow(), seatsController.getSeatColumn());
+                        firstWayFlight = selectedFlight;
+                    }
+                    else {
+                        setSeatsInReturnWay(seatsController.getSeatRow(), seatsController.getSeatColumn());
+                        returnWayFlight = selectedFlight;
+                    }
+                }
+
+                System.out.println("Close choosing seats stage");
+            });
+        }
+    }
+
+    public void setSeatsInFirstWay(int seatRow, char seatColumn){
+        firstWaySeatRow = seatRow;
+        firstWaySeatColumn = seatColumn;
+    }
+
+    public void setSeatsInReturnWay(int seatRow, char seatColumn){
+        returnWaySeatRow = seatRow;
+        returnWaySeatColumn = seatColumn;
+    }
+
+    private void setSummaryText(Label label, Flights flight, int seatRow, char seatColumn){
         StringBuilder sb = new StringBuilder();
         sb.append("From: ").append(flight.getFrom());
         sb.append("\nTo: ").append(flight.getTo());
         sb.append("\nDeparture time: ").append(flight.getFlightDate()).append(" ").append(flight.getDepartureTime());
         sb.append("\nArrival time: ").append(flight.getFlightDate()).append(" ").append(flight.getArrivalTime());
         sb.append("\nTotal price: ").append(flight.getPrice());
+        sb.append("\nSeat no.: ").append(seatRow).append(seatColumn);
 
         label.setText(String.valueOf(sb));
     }
@@ -246,12 +294,31 @@ public class SearchFlightController {
 
     @FXML
     public void bookFlightButton(javafx.event.ActionEvent actionEvent) {
-       if(firstWayFlightSummaryLabel != null) {
-           System.out.println("book first way flight");
+       if(firstWayFlight != null) {
+           DB db = new DB();
+           db.openConnection();
 
-           if (returnRadioButton == (RadioButton) typeOfTripGroup.getSelectedToggle() && returnWayFlightSummaryLabel != null) {
-               System.out.println("book return flight");
+           db.bookFlight(firstWayFlight.getFlightNumber(), firstWayFlight.getFlightDate(), Integer.toString(firstWaySeatRow), Character.toString(firstWaySeatColumn), firstWayFlight.getPriceDouble());
+           System.out.println("I booked for user first way flight!");
+
+           if (returnRadioButton == (RadioButton) typeOfTripGroup.getSelectedToggle() && returnWayFlight != null) {
+               db.bookFlight(returnWayFlight.getFlightNumber(), returnWayFlight.getFlightDate(), Integer.toString(returnWaySeatRow), Character.toString(returnWaySeatColumn), returnWayFlight.getPriceDouble());
+
+               System.out.println("I booked for user return flight!");
            }
+
+           db.closeConnection();
+
+           try {
+               BorderPane root = new BorderPane(FXMLLoader.load(getClass().getResource("fxml/menu.fxml")));
+               Scene searchFlightScene = new Scene(root, 800, 400);
+               System.out.println("[searchFlightScene] -> [menuScene]");
+
+               Main.getState().setScene(searchFlightScene);
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+
        }
     }
 

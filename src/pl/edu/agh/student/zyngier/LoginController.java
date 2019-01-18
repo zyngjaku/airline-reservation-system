@@ -10,9 +10,7 @@ import javafx.scene.control.TextField;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import pl.edu.agh.student.zyngier.service.DB;
+import pl.edu.agh.student.zyngier.services.DB;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package pl.edu.agh.student.zyngier.service;
+package pl.edu.agh.student.zyngier.services;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -232,9 +232,7 @@ public class DB{
                         price = Double.toString(rs.getInt(5) * 0.6);
                     }
 
-                    price += "\u20AC";
-
-                    flights.add(new Flights(departureAirport, arrivalAirport, flightDate, (rs.getString(2)).substring(0, (rs.getString(2)).length() - 3), (rs.getString(3)).substring(0, (rs.getString(3)).length() - 3), price));
+                    flights.add(new Flights(rs.getString(1), departureAirport, arrivalAirport, flightDate, (rs.getString(2)).substring(0, (rs.getString(2)).length() - 3), (rs.getString(3)).substring(0, (rs.getString(3)).length() - 3), price));
                 }
             }
         }catch (SQLException e){
@@ -242,5 +240,35 @@ public class DB{
         }
 
         return flights;
+    }
+
+    public Map<Integer, Character> getOccpiedSeatsInPlane(String flightNumber, String flightDate){
+        Map<Integer, Character> occupiedSeats = new HashMap<>();
+
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT t.seatRow, t.seatColumn FROM flights f RIGHT JOIN tickets t ON f.flightNumber=t.flightNumber WHERE f.flightNumber='"+ flightNumber +"' AND t.flightDate='"+ flightDate +"'");
+
+            while(rs.next()) {
+                occupiedSeats.put(rs.getInt(1), (rs.getString(2)).charAt(0));
+            }
+
+        }catch (SQLException e){
+            // handle any error
+        }
+
+        return occupiedSeats;
+    }
+
+    public void bookFlight(String flightNumber, String flightDate, String seatRow, String seatColumn, Double flightPrice){
+        try {
+            String userID = System.getProperty("id");
+
+            stmt = conn.createStatement();
+            stmt.executeUpdate("INSERT INTO tickets (passengerID, flightNumber, seatRow, seatColumn, flightDate, flightPrice) VALUES('"+ userID +"','"+ flightNumber +"','"+ seatRow +"','"+ seatColumn +"','"+ flightDate +"','"+ flightPrice +"')");
+        }catch (SQLException e){
+            // handle any error
+            System.out.println(e);
+        }
     }
 }

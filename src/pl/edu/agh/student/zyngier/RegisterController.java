@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-import pl.edu.agh.student.zyngier.service.DB;
+import pl.edu.agh.student.zyngier.services.DB;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -57,7 +57,7 @@ public class RegisterController {
                         DB db = new DB();
                         db.openConnection();
 
-                        //Checking if email exist in service
+                        //Checking if email exist in services
                         if (db.checkIfEmailExist(emailField.getText())) setResultMessage(messageLabel, false, "This email still exist");
                         else {
                             setResultMessage(messageLabel, true, "Successfully created account");
