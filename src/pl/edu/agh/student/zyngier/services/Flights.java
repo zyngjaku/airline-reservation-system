@@ -7,8 +7,9 @@ public class Flights {
     private String flightDate;
     private String departureTime;
     private String arrivalTime;
-    private String price;
-    private double priceDouble;
+    private double price;
+    private int seatRow;
+    private char seatColumn;
 
 
     public Flights(String flightNumber, String from, String to, String flightDate, String departureTime, String arrivalTime, String price) {
@@ -18,9 +19,9 @@ public class Flights {
         this.flightDate = flightDate;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
-        this.priceDouble = Float.valueOf(price);
-        this.price = price + "\u20AC";
-
+        this.price = Float.valueOf(price);
+        this.seatRow = -1;
+        this.seatColumn = 'X';
     }
 
     public String getFlightNumber() {
@@ -48,8 +49,23 @@ public class Flights {
     }
 
     public String getPrice() {
+        return Double.toString(price)+"\u20AC";
+    }
+
+    public double getPriceDouble() {
         return price;
     }
 
-    public double getPriceDouble() { return priceDouble; }
+    public void setSeat(int seatRow, char seatColumn){
+        this.seatRow = seatRow;
+        this.seatColumn = seatColumn;
+    }
+
+    public int getSeatRow(){
+        return seatRow;
+    }
+
+    public char getSeatColumn(){
+        return seatColumn;
+    }
 }

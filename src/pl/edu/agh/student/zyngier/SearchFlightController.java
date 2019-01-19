@@ -86,12 +86,6 @@ public class SearchFlightController {
     @FXML
     private Button bookFlightButton;
 
-    private int firstWaySeatRow;
-    private char firstWaySeatColumn;
-
-    private int returnWaySeatRow;
-    private char returnWaySeatColumn;
-
     private Flights firstWayFlight = null;
     private Flights returnWayFlight = null;
 
@@ -152,28 +146,18 @@ public class SearchFlightController {
                     setSummaryText(label, selectedFlight, seatsController.getSeatRow(), seatsController.getSeatColumn());
 
                     if(table == firstWayFlightTable) {
-                        setSeatsInFirstWay(seatsController.getSeatRow(), seatsController.getSeatColumn());
                         firstWayFlight = selectedFlight;
+                        firstWayFlight.setSeat(seatsController.getSeatRow(), seatsController.getSeatColumn());
                     }
                     else {
-                        setSeatsInReturnWay(seatsController.getSeatRow(), seatsController.getSeatColumn());
                         returnWayFlight = selectedFlight;
+                        returnWayFlight.setSeat(seatsController.getSeatRow(), seatsController.getSeatColumn());
                     }
                 }
 
                 System.out.println("Close choosing seats stage");
             });
         }
-    }
-
-    public void setSeatsInFirstWay(int seatRow, char seatColumn){
-        firstWaySeatRow = seatRow;
-        firstWaySeatColumn = seatColumn;
-    }
-
-    public void setSeatsInReturnWay(int seatRow, char seatColumn){
-        returnWaySeatRow = seatRow;
-        returnWaySeatColumn = seatColumn;
     }
 
     private void setSummaryText(Label label, Flights flight, int seatRow, char seatColumn){
@@ -298,17 +282,17 @@ public class SearchFlightController {
            DB db = new DB();
            db.openConnection();
 
-           db.bookFlight(firstWayFlight.getFlightNumber(), firstWayFlight.getFlightDate(), Integer.toString(firstWaySeatRow), Character.toString(firstWaySeatColumn), firstWayFlight.getPriceDouble());
+           db.bookFlight(firstWayFlight);
            System.out.println("I booked for user first way flight!");
 
            if (returnRadioButton == (RadioButton) typeOfTripGroup.getSelectedToggle() && returnWayFlight != null) {
-               db.bookFlight(returnWayFlight.getFlightNumber(), returnWayFlight.getFlightDate(), Integer.toString(returnWaySeatRow), Character.toString(returnWaySeatColumn), returnWayFlight.getPriceDouble());
-
+               db.bookFlight(returnWayFlight);
                System.out.println("I booked for user return flight!");
            }
 
            db.closeConnection();
 
+           /* Back to menu */ //TODO: Go to all booked flights
            try {
                BorderPane root = new BorderPane(FXMLLoader.load(getClass().getResource("fxml/menu.fxml")));
                Scene searchFlightScene = new Scene(root, 800, 400);

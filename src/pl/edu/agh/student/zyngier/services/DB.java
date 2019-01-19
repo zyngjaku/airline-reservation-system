@@ -202,7 +202,7 @@ public class DB{
 
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT f.flightNumber, f.timeDeparture, f.timeArrival, (j.numberofRows*j.numberOfColumns-COUNT(t.ticketNumber)) as 'numberOfAvailableSeats', f.basePrice FROM flights f LEFT JOIN tickets t ON f.flightNumber=t.flightNumber AND t.flightDate='"+ flightDate +"' LEFT JOIN jets j ON f.jetNumber=j.jetNumber WHERE f.airportDeparture='"+ departureAirport +"' AND f.airportArrival='"+ arrivalAirport +"' AND '"+ flightDate +"' BETWEEN f.firstFlightDate AND f.lastFlightDate GROUP BY t.flightNumber, t.flightDate;");
+            rs = stmt.executeQuery("SELECT f.flightNumber, f.timeDeparture, f.timeArrival, (j.numberofRows*j.numberOfColumns-COUNT(t.ticketNumber)) as 'numberOfAvailableSeats', f.basePrice FROM flights f LEFT JOIN tickets t ON f.flightNumber=t.flightNumber AND t.flightDate='"+ flightDate +"' LEFT JOIN jets j ON f.jetNumber=j.jetNumber WHERE f.airportDeparture='"+ departureAirport +"' AND f.airportArrival='"+ arrivalAirport +"' AND '"+ flightDate +"' BETWEEN f.firstFlightDate AND f.lastFlightDate GROUP BY t.flightNumber, t.flightDate ORDER BY f.timeDeparture ASC;");
             while(rs.next()){
                 if(rs.getInt(4)>0){
                     String price = Double.toString(rs.getInt(4));
@@ -242,15 +242,15 @@ public class DB{
         return flights;
     }
 
-    public Map<Integer, Character> getOccpiedSeatsInPlane(String flightNumber, String flightDate){
-        Map<Integer, Character> occupiedSeats = new HashMap<>();
+    public ArrayList<String> getOccpiedSeatsInPlane(String flightNumber, String flightDate){
+        ArrayList<String> occupiedSeats = new ArrayList<>();
 
         try {
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT t.seatRow, t.seatColumn FROM flights f RIGHT JOIN tickets t ON f.flightNumber=t.flightNumber WHERE f.flightNumber='"+ flightNumber +"' AND t.flightDate='"+ flightDate +"'");
 
             while(rs.next()) {
-                occupiedSeats.put(rs.getInt(1), (rs.getString(2)).charAt(0));
+                occupiedSeats.add(rs.getString(1) + rs.getString(2));
             }
 
         }catch (SQLException e){
@@ -260,15 +260,20 @@ public class DB{
         return occupiedSeats;
     }
 
-    public void bookFlight(String flightNumber, String flightDate, String seatRow, String seatColumn, Double flightPrice){
+    public void bookFlight(Flights flight){
+        String flightNumber = flight.getFlightNumber();
+        String flightDate = flight.getFlightDate();
+        int seatRow = flight.getSeatRow();
+        char seatColumn = flight.getSeatColumn();
+        Double flightPrice = flight.getPriceDouble();
+
         try {
             String userID = System.getProperty("id");
 
             stmt = conn.createStatement();
             stmt.executeUpdate("INSERT INTO tickets (passengerID, flightNumber, seatRow, seatColumn, flightDate, flightPrice) VALUES('"+ userID +"','"+ flightNumber +"','"+ seatRow +"','"+ seatColumn +"','"+ flightDate +"','"+ flightPrice +"')");
         }catch (SQLException e){
-            // handle any error
-            System.out.println(e);
+            // handle any errvor
         }
     }
 }

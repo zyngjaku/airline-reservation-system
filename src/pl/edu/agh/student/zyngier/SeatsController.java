@@ -10,6 +10,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pl.edu.agh.student.zyngier.services.DB;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
@@ -160,15 +161,13 @@ public class SeatsController {
         DB db = new DB();
         db.openConnection();
 
-        Map<Integer, Character> occupiedSeats = db.getOccpiedSeatsInPlane(flightNumber, flightDate);
+        ArrayList<String> occupiedSeats = db.getOccpiedSeatsInPlane(flightNumber, flightDate);
 
         db.closeConnection();
 
-        Iterator it = occupiedSeats.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            ifSeatIsFree[(int) pair.getKey()-1][getColumnIndex((Character) pair.getValue())] = false;
-            it.remove();
+
+        for(String it : occupiedSeats) {
+            ifSeatIsFree[Integer.parseInt(it.substring(0,it.length()-1))-1][getColumnIndex(it.substring(it.length()-1).charAt(0))] = false;
         }
     }
 
