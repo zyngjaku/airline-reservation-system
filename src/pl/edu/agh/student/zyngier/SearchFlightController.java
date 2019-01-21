@@ -5,12 +5,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import pl.edu.agh.student.zyngier.services.DB;
 import pl.edu.agh.student.zyngier.services.Flights;
+import pl.edu.agh.student.zyngier.services.JsonParser;
 
+import java.awt.*;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -98,11 +102,9 @@ public class SearchFlightController {
         DB db =  new DB();
         db.openConnection();
 
-        ArrayList<String> departureAirports = db.getDepartureAirports();
 
-        for(String it : departureAirports){
-            departureAirportChoice.getItems().add(it);
-        }
+        ArrayList<String> departureAirportsList = db.getDepartureAirports();
+        addAirportsToList(departureAirportChoice, departureAirportsList);
 
         db.closeConnection();
 
@@ -172,6 +174,24 @@ public class SearchFlightController {
         label.setText(String.valueOf(sb));
     }
 
+    private void addAirportsToList(ChoiceBox airportChoice, ArrayList<String> departureAirportIataCodeList){
+        JsonParser jsonParser = new JsonParser();
+
+        for(String it : departureAirportIataCodeList){
+            String airportCity = jsonParser.findValueOfKey("iata_code", it,"municipality");
+            String airportCountry = jsonParser.findValueOfKey("iata_code", it,"iso_country");
+
+            if(airportCity != null) airportChoice.getItems().add(airportCity + " (" + airportCountry + ")");
+            else airportChoice.getItems().add(it);
+        }
+    }
+
+    private String convertAirportFromChoiceBoxToCity(ChoiceBox getChoiceBox){
+        String valueFromChoiceBox = getChoiceBox.getValue().toString();
+
+        return valueFromChoiceBox.substring(0, valueFromChoiceBox.length()-5);
+    }
+
     @FXML
     private void returnRadioButton(ActionEvent event) {
         flyBackDate.setDisable(false);
@@ -188,12 +208,13 @@ public class SearchFlightController {
         DB db =  new DB();
         db.openConnection();
 
-        ArrayList<String> arrivalAirport = db.getArrivalAirports(departureAirportChoice.getValue().toString());
+        JsonParser jsonParser = new JsonParser();
+        String chooseAirportIataCode = jsonParser.findValueOfKey("municipality", convertAirportFromChoiceBoxToCity(departureAirportChoice),"iata_code");
+
+        ArrayList<String> arrivalAirportsList = db.getArrivalAirports(chooseAirportIataCode);
 
         arrivalAirportChoice.getItems().clear();
-        for(String it : arrivalAirport){
-            arrivalAirportChoice.getItems().add(it);
-        }
+        addAirportsToList(arrivalAirportChoice, arrivalAirportsList);
 
         db.closeConnection();
     }
@@ -206,15 +227,19 @@ public class SearchFlightController {
             DB db = new DB();
             db.openConnection();
 
-            manageDatePicker(db, flyOutDate, departureAirportChoice, arrivalAirportChoice);
-            manageDatePicker(db, flyBackDate, arrivalAirportChoice, departureAirportChoice);
+            JsonParser jsonParser = new JsonParser();
+            String departureAirportIataCode = jsonParser.findValueOfKey("municipality", convertAirportFromChoiceBoxToCity(departureAirportChoice),"iata_code");
+            String arrivalAirportIataCode = jsonParser.findValueOfKey("municipality", convertAirportFromChoiceBoxToCity(arrivalAirportChoice),"iata_code");
+
+            manageDatePicker(db, flyOutDate, departureAirportIataCode, arrivalAirportIataCode);
+            manageDatePicker(db, flyBackDate, arrivalAirportIataCode, departureAirportIataCode);
 
             db.closeConnection();
         }
     }
 
-    private void manageDatePicker(DB db, DatePicker datePicker, ChoiceBox departureAirportChoice, ChoiceBox arrivalAirportChoice){
-        ArrayList<DayOfWeek> flightDate = db.getFlightDays(departureAirportChoice.getValue().toString(), arrivalAirportChoice.getValue().toString());
+    private void manageDatePicker(DB db, DatePicker datePicker, String departureAirport, String arrivalAirportChoice){
+        ArrayList<DayOfWeek> flightDate = db.getFlightDays(departureAirport, arrivalAirportChoice);
 
         if(datePicker == flyBackDate && flightDate.isEmpty()){
             oneWayRadioButton.setSelected(true);
@@ -246,8 +271,13 @@ public class SearchFlightController {
             DB db = new DB();
             db.openConnection();
 
-            ArrayList<Flights> flights;
-            flights = db.getFlights(departureAirportChoice.getValue().toString(), arrivalAirportChoice.getValue().toString(), flyOutDate.getValue().toString());
+
+
+            JsonParser jsonParser = new JsonParser();
+            String departureAirportIataCode = jsonParser.findValueOfKey("municipality", convertAirportFromChoiceBoxToCity(departureAirportChoice),"iata_code");
+            String arrivalAirportIataCode = jsonParser.findValueOfKey("municipality", convertAirportFromChoiceBoxToCity(arrivalAirportChoice),"iata_code");
+
+            ArrayList<Flights> flights = db.getFlights(departureAirportIataCode, arrivalAirportIataCode, flyOutDate.getValue().toString());
 
             for(Flights it : flights) {
                 firstWayFlightTable.getItems().add(it);
@@ -263,7 +293,7 @@ public class SearchFlightController {
                 System.out.println(arrivalAirportChoice.getValue().toString() + "->" + departureAirportChoice.getValue().toString());
 
                 flights.clear();
-                flights = db.getFlights(arrivalAirportChoice.getValue().toString(), departureAirportChoice.getValue().toString(), flyBackDate.getValue().toString());
+                flights = db.getFlights(arrivalAirportIataCode, departureAirportIataCode, flyBackDate.getValue().toString());
 
                 for(Flights it : flights) {
                     returnWayFlightTable.getItems().add(it);
