@@ -12,7 +12,7 @@ public class Flights {
     private char seatColumn;
 
 
-    public Flights(String flightNumber, String from, String to, String flightDate, String departureTime, String arrivalTime, String price) {
+    public Flights(String flightNumber, String from, String to, String flightDate, String departureTime, String arrivalTime, int seatRow, char seatColumn, String price) {
         this.flightNumber = flightNumber;
         this.from = from;
         this.to = to;
@@ -20,8 +20,12 @@ public class Flights {
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.price = Float.valueOf(price);
-        this.seatRow = -1;
-        this.seatColumn = 'X';
+        this.seatRow = seatRow;
+        this.seatColumn = seatColumn;
+    }
+
+    public Flights(String flightNumber, String from, String to, String flightDate, String departureTime, String arrivalTime, String price) {
+        this(flightNumber, from, to, flightDate, departureTime, arrivalTime, -1, 'X', price);
     }
 
     public String getFlightNumber() {
@@ -68,4 +72,6 @@ public class Flights {
     public char getSeatColumn(){
         return seatColumn;
     }
+
+    public String getDate() { return flightDate+" "+departureTime; }
 }

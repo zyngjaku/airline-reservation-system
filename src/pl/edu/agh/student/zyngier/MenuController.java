@@ -37,9 +37,13 @@ public class MenuController {
     }
 
     @FXML
-    public void bookedFlightButton(javafx.event.ActionEvent actionEvent) {
-        System.out.println("booked");
+    public void bookedFlightButton(javafx.event.ActionEvent actionEvent) throws IOException {
+        BorderPane root = new BorderPane(FXMLLoader.load(getClass().getResource("fxml/booked_flight.fxml")));
+        Scene searchFlightScene = new Scene(root, 800, 400);
 
+        System.out.println("[menuScene] -> [bookedFlightScene]");
+
+        Main.getState().setScene(searchFlightScene);
     }
 
     @FXML

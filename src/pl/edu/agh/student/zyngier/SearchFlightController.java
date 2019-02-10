@@ -3,13 +3,18 @@ package pl.edu.agh.student.zyngier;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 import pl.edu.agh.student.zyngier.services.DB;
 import pl.edu.agh.student.zyngier.services.Flights;
 import pl.edu.agh.student.zyngier.services.JsonParser;
@@ -102,7 +107,6 @@ public class SearchFlightController {
         DB db =  new DB();
         db.openConnection();
 
-
         ArrayList<String> departureAirportsList = db.getDepartureAirports();
         addAirportsToList(departureAirportChoice, departureAirportsList);
 
@@ -134,6 +138,24 @@ public class SearchFlightController {
                 actionOnChooseFlight(returnWayFlightTable, returnWayFlightSummaryLabel);
             }
         });
+    }
+
+    @FXML
+    public void goToMenuSceneButton(javafx.event.ActionEvent actionEvent) {
+        goToMenuScene();
+    }
+
+    private void goToMenuScene(){
+        /* Back to menu scene */
+        try {
+            BorderPane root = new BorderPane(FXMLLoader.load(getClass().getResource("fxml/menu.fxml")));
+            Scene searchFlightScene = new Scene(root, 800, 400);
+            System.out.println("[searchFlightScene] -> [menuScene]");
+
+            Main.getState().setScene(searchFlightScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void actionOnChooseFlight(TableView<Flights> table, Label label){
@@ -207,7 +229,7 @@ public class SearchFlightController {
     public void departureAirportChoice(javafx.event.ActionEvent actionEvent) {
         DB db =  new DB();
         db.openConnection();
-
+        System.out.println(departureAirportChoice.getValue().toString());
         JsonParser jsonParser = new JsonParser();
         String chooseAirportIataCode = jsonParser.findValueOfKey("municipality", convertAirportFromChoiceBoxToCity(departureAirportChoice),"iata_code");
 
@@ -322,17 +344,19 @@ public class SearchFlightController {
 
            db.closeConnection();
 
-           /* Back to menu */ //TODO: Go to all booked flights
-           try {
-               BorderPane root = new BorderPane(FXMLLoader.load(getClass().getResource("fxml/menu.fxml")));
-               Scene searchFlightScene = new Scene(root, 800, 400);
-               System.out.println("[searchFlightScene] -> [menuScene]");
+           Alert tmpInfoAlertBox = new Alert(Alert.AlertType.INFORMATION);
+           tmpInfoAlertBox.setTitle("Thank you for flying with us!");
+           tmpInfoAlertBox.setContentText("We booked this flight for you!");
 
-               Main.getState().setScene(searchFlightScene);
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
+           tmpInfoAlertBox.setHeaderText(null);
+           tmpInfoAlertBox.setGraphic(null);
+           tmpInfoAlertBox.initModality(Modality.APPLICATION_MODAL);
+           tmpInfoAlertBox.initOwner(Main.getState());
 
+
+           tmpInfoAlertBox.showAndWait().ifPresent(rs -> {
+               goToMenuScene();
+           });
        }
     }
 

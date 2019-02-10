@@ -137,13 +137,12 @@ public class DB{
         ArrayList<String> arrivalAirports = new ArrayList<String>();
 
         try {
-            Date date = new Date();
-
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT DISTINCT airportArrival FROM flights WHERE airportDeparture='"+ departureAirport +"' AND lastFlightDate>NOW()");
 
             while(rs.next()){
                 arrivalAirports.add(rs.getString(1));
+                System.out.println(rs.getString(1));
             }
         }catch (SQLException e){
             // handle any error
@@ -205,34 +204,34 @@ public class DB{
             rs = stmt.executeQuery("SELECT f.flightNumber, f.timeDeparture, f.timeArrival, (j.numberofRows*j.numberOfColumns-COUNT(t.ticketNumber)) as 'numberOfAvailableSeats', f.basePrice FROM flights f LEFT JOIN tickets t ON f.flightNumber=t.flightNumber AND t.flightDate='"+ flightDate +"' LEFT JOIN jets j ON f.jetNumber=j.jetNumber WHERE f.airportDeparture='"+ departureAirport +"' AND f.airportArrival='"+ arrivalAirport +"' AND '"+ flightDate +"' BETWEEN f.firstFlightDate AND f.lastFlightDate GROUP BY t.flightNumber, t.flightDate ORDER BY f.timeDeparture ASC;");
             while(rs.next()){
                 if(rs.getInt(4)>0){
-                    String price = Double.toString(rs.getInt(4));
+                    Double price = Double.valueOf(rs.getInt(4));
 
                     if(rs.getInt(4)<10){
-                        price = Double.toString(rs.getInt(5) * 3);
+                        price = Double.valueOf(rs.getInt(5) * 3);
                     }
                     else if(rs.getInt(4)<20){
-                        price = Double.toString(rs.getInt(5) * 2.5);
+                        price = Double.valueOf(rs.getInt(5) * 2.5);
                     }
                     else if(rs.getInt(4)<30){
-                        price = Double.toString(rs.getInt(5) * 2.25);
+                        price = Double.valueOf(rs.getInt(5) * 2.25);
                     }
                     else if(rs.getInt(4)<50){
-                        price = Double.toString(rs.getInt(5) * 2);
+                        price = Double.valueOf(rs.getInt(5) * 2);
                     }
                     else if(rs.getInt(4)<100){
-                        price = Double.toString(rs.getInt(5) * 1.5);
+                        price = Double.valueOf(rs.getInt(5) * 1.5);
                     }
                     else if(rs.getInt(4)<150){
-                        price = Double.toString(rs.getInt(5) * 1);
+                        price = Double.valueOf(rs.getInt(5) * 1);
                     }
                     else if(rs.getInt(4)<160){
-                        price = Double.toString(rs.getInt(5) * 0.8);
+                        price = Double.valueOf(rs.getInt(5) * 0.8);
                     }
                     else{
-                        price = Double.toString(rs.getInt(5) * 0.6);
+                        price = Double.valueOf(rs.getInt(5) * 0.6);
                     }
 
-                    flights.add(new Flights(rs.getString(1), departureAirport, arrivalAirport, flightDate, (rs.getString(2)).substring(0, (rs.getString(2)).length() - 3), (rs.getString(3)).substring(0, (rs.getString(3)).length() - 3), price));
+                    flights.add(new Flights(rs.getString(1), departureAirport, arrivalAirport, flightDate, (rs.getString(2)).substring(0, (rs.getString(2)).length() - 3), (rs.getString(3)).substring(0, (rs.getString(3)).length() - 3), Double.toString(Math.round(price))));
                 }
             }
         }catch (SQLException e){
@@ -275,5 +274,29 @@ public class DB{
         }catch (SQLException e){
             // handle any errvor
         }
+    }
+
+    public ArrayList<Flights> getYourBookedFlight(){
+        ArrayList<Flights> flights = new ArrayList<Flights>();
+
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT t.flightNumber, f.airportDeparture, f.airportArrival, t.flightDate, f.timeDeparture, f.timeArrival, t.seatRow, t.seatColumn, t.flightPrice FROM tickets t LEFT JOIN flights f ON t.flightNumber=f.flightNumber WHERE t.flightDate>NOW() AND t.passengerID="+ System.getProperty("id") +" ORDER BY t.flightDate;");
+
+            JsonParser jsonParser = new JsonParser();
+
+            while(rs.next()){
+                String airportCity_from = jsonParser.findValueOfKey("iata_code", rs.getString(2),"municipality");
+                String airportCountry_from = jsonParser.findValueOfKey("iata_code", rs.getString(2),"iso_country");
+                String airportCity_to = jsonParser.findValueOfKey("iata_code", rs.getString(3),"municipality");
+                String airportCountry_to = jsonParser.findValueOfKey("iata_code", rs.getString(3),"iso_country");
+
+                flights.add(new Flights(rs.getString(1), airportCity_from + " (" + airportCountry_from + ")", airportCity_to + " (" + airportCountry_to + ")", rs.getString(4), rs.getString(5).substring(0, rs.getString(5).length() - 3), rs.getString(6), rs.getInt(7), rs.getString(8).charAt(0), rs.getString(9)));
+            }
+        }catch (SQLException e){
+            // handle any error
+        }
+
+        return flights;
     }
 }
